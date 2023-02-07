@@ -1,4 +1,32 @@
-javascript: function returnSumByName() {
+javascript: 
+function clickName(gwpList) {
+    var iframe = document.getElementById('__delegate').contentWindow.document;
+    var tuiRsideArea = iframe.querySelector(".tui-grid-rside-area");
+    var trList = tuiRsideArea.querySelectorAll('tr');
+    var indexList = [];
+    var index = 0;
+    for (let i of trList) {
+        let innerText = i.innerText;
+        var SplitedText = innerText.split("\t").map(x => x.trim());
+        var name = SplitedText[9];
+        if (gwpList.includes(name)) {
+            indexList.push(index)
+        }
+        index += 1
+    }
+
+    var tuiGridArea = iframe.querySelector(".tui-grid-body-area");
+    var inputs = tuiGridArea.querySelectorAll('input');
+    var index = 1
+    for (let i of inputs) {
+        if (indexList.includes(index)) {
+            i.click()
+        }
+        index += 1
+    }
+}
+
+function returnSumByName() {
     var iframe = document.getElementById('__delegate').contentWindow.document;
     var tuiRsideArea = iframe.querySelector(".tui-grid-rside-area");
     var trList = tuiRsideArea.querySelectorAll('tr');
@@ -10,7 +38,8 @@ javascript: function returnSumByName() {
         var price = Number(SplitedText[22]);
         var totalPrice = Number(SplitedText[25]);
         dataList.push({ name, price, totalPrice });
-    } var result = [];
+    };
+    var result = [];
     dataList.reduce(function (res, value) {
         if (!res[value.name]) {
             res[value.name] = { name: value.name, totalPrice: 0 };
@@ -18,11 +47,14 @@ javascript: function returnSumByName() {
         } res[value.name].totalPrice += value.totalPrice;
         return res;
     }, {});
-    result = result.filter(x => x.totalPrice > 150000);
+    result = result.filter(x => x.totalPrice > 200000);
     const objectListAsString = result.map(object => `${object.name}: ${object.totalPrice}`).join('\n');
     alert(objectListAsString);
-    console.log(objectListAsString);
+    let gwpList = result.map(obj => obj.name)
+    clickName(gwpList)
 }
+
+
 
 function _getToday() {
     var date = new Date();
@@ -30,7 +62,7 @@ function _getToday() {
     var month = ("0" + (1 + date.getMonth())).slice(-2);
     var day = ("0" + date.getDate()).slice(-2);
     return year + month + day;
-} 
+}
 
 function naverClipboardEC() {
     var shopName = document.querySelector('span.shop').textContent;
@@ -43,7 +75,7 @@ function naverClipboardEC() {
     for (var i = 1;
         i < trList.length;
         i++) {
-            var innerText = trList[i].innerText;
+        var innerText = trList[i].innerText;
         var SplitedText = innerText.split("\t").map(x => x.trim());
         var dNumber = SplitedText[2].slice(8,);
         var howTo = SplitedText[0];
