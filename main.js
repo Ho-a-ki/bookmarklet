@@ -47,7 +47,7 @@ function returnSumByName() {
         } res[value.name].totalPrice += value.totalPrice;
         return res;
     }, {});
-    result = result.filter(x => x.totalPrice > 150000);
+    result = result.filter(x => x.totalPrice > 200000);
     const objectListAsString = result.map(object => `${object.name}: ${object.totalPrice}`).join('\n');
     alert(objectListAsString);
     let gwpList = result.map(obj => obj.name)
