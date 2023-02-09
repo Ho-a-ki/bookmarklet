@@ -1,5 +1,3 @@
-
-
 javascript: function addScript() {
   var head = document.getElementsByTagName('head')[0];
   var jScript;
@@ -10,33 +8,14 @@ javascript: function addScript() {
   head.appendChild(jScript);
 }
 
-function findUserAndCallBack(id, cb) {
-  setTimeout(function () {
-    console.log("waited 0.1 sec.");
-    const user = {
-      id: id,
-      name: "User" + id,
-      email: id + "@test.com",
-    };
-    cb(user);
-  }, 100);
-}
-
-findUserAndCallBack(1, function (user) {
-  console.log("user:", user);
-});
-
-
-try {
- add_script();
-  let sign;
-} catch (error) {
-  console.error(error);
+function addScriptAndCallFunction(cb) {
+  addScript();
+  setTimeout(() => {cb()}, 200);
 }
 
 sign = prompt("어떤 기능을 실행하겠습니까? \n 1. 증정품 체크 \n 2. 이카운트 입력");
 if (sign == "1") {
-  returnSumByName();
+  addScriptAndCallFunction(() => { returnSumByName()});
 } else if (sign == "2") {
-  naverClipboardEC();
-}
+  addScriptAndCallFunction(() => {naverClipboardEC()});  
+};
