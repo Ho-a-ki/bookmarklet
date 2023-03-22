@@ -1,5 +1,5 @@
 // 유저분한테 드리는 코드. 업데이트시 자동반영 (그러나 시간 걸림)
-// 새롭게
+// 새롭게 업데이트
 
 javascript: function addScript() {
   var head = document.getElementsByTagName('head')[0];
