@@ -68,6 +68,17 @@ function naverClipboardEC() {
     var shopName = document.querySelector('span.shop').textContent;
     var custCodeDict = { '스위스유스트': 'HQ_NAVER', '에코빌리티': 'A0002', '혼자팩토리': 'A0001', };
     var custCode = custCodeDict[shopName];
+    if (custCode == 'HQ_NAVER') {
+        naverClipboardEC1()
+    } else {
+        naverClipboardEC2()
+    }
+}
+
+function naverClipboardEC1() {
+    var shopName = document.querySelector('span.shop').textContent;
+    var custCodeDict = { '스위스유스트': 'HQ_NAVER'};
+    var custCode = custCodeDict[shopName];
     var resultString = '';
     var iframe = document.getElementById('__delegate').contentWindow.document;
     var tuiRsideArea = iframe.querySelector(".tui-grid-rside-area");
@@ -88,16 +99,39 @@ function naverClipboardEC() {
             var date = _getToday();
             var totalPrice = Number(SplitedText[25]) * 0.9;
             totalPrice = Math.floor(totalPrice / 1000) * 1000;
-            if (custCode != 'HQ_NAVER') {
-                var EcStirng = `${date}\t\t${custCode}\t\tAPI\t본사창고\t\t\t\t${Code}\t\t\t${orderEa}\t${price}\t\t${totalPrice}\t\t${name}\t\tY`;
-            } else {
-                var EcStirng = `${date}\t\t${custCode}\t\tBOT2\t양평 사무실 (2층)\t\t\t\t\t\t\t\t${Code}\t\t\t${orderEa}\t${price}\t\t${totalPrice}\t${name}\t\tY`;
-            } resultString += EcStirng + '\n';
+            var EcStirng = `${date}\t\t${custCode}\t\tBOT2\t양평 사무실 (2층)\t\t\t\t\t\t\t\t${Code}\t\t\t${orderEa}\t${price}\t\t${totalPrice}\t${name}\t\tY`;
+            resultString += EcStirng + '\n';
         }
     } navigator.clipboard.writeText(resultString);
     null;
     alert("해당 내역이 클립보드에 복사되었습니다. 이카운트 판매입력 웹자료로 붙여넣기 해주세요.");
 }
+
+function naverClipboardEC2() {
+    var shopName = document.querySelector('span.shop').textContent;
+    var custCodeDict = { '에코빌리티': 'A0002', '혼자팩토리': 'A0001', };
+    var custCode = custCodeDict[shopName];
+    var resultString = '';
+    var iframe = document.getElementById('__delegate').contentWindow.document;
+    var tuiRsideArea = iframe.querySelector(".tui-grid-rside-area");
+    var trList = tuiRsideArea.querySelectorAll('tr');
+    for (var i = 1;
+        i < trList.length;
+        i++) {
+            var innerText = trList[i].innerText;
+        var SplitedText = innerText.split("\t").map(x => x.trim());
+        var name = SplitedText[10];
+        var orderEa = SplitedText[21];
+        var Code = SplitedText[20];
+        var price = Number(SplitedText[23]);
+        var date = getToday();
+        var totalPrice = Number(SplitedText[26]);
+        var EcStirng = `${date}\t\t${custCode}\t\tAPI\t본사창고\t\t\t\t${Code}\t\t\t${orderEa}\t${price}\t\t${totalPrice}\t\t${name}\t\tY`;
+        resultString += EcStirng + '\n';
+    } navigator.clipboard.writeText(resultString);
+    null;
+    alert("해당 내역이 클립보드에 복사되었습니다. 이카운트 판매입력 웹자료로 붙여넣기 해주세요.");
+};
 
 function naverSalesEC() {
     let shopName = document.querySelector('span.shop').textContent;
