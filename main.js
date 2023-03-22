@@ -149,7 +149,7 @@ function naverSalesEC() {
         let sales = SplitedText[3].replaceAll(',','');
         let refund = SplitedText[8].replaceAll(',','');
         let resSales = Number(sales) - Number(refund);
-        let EcStirng = `${date}\t\t${custCode}\t\t임기홍\t본사창고\t\t\t\tX0004\t\t\t1\t${resSales}\t\t${resSales}\t\t\t\tY`;
+        let EcStirng = `${date}\t\t${custCode}\t\tAPI\t본사창고\t\t\t\tX0004\t\t\t1\t${resSales}\t\t${resSales}\t\t\t\tY`;
         resString += EcStirng + '\n';
     }
     navigator.clipboard.writeText(resString);
