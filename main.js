@@ -124,7 +124,7 @@ function naverClipboardEC2() {
         var orderEa = SplitedText[21];
         var Code = SplitedText[20];
         var price = Number(SplitedText[23]);
-        var date = getToday();
+        var date = _getToday();
         var totalPrice = Number(SplitedText[26]);
         var EcStirng = `${date}\t\t${custCode}\t\tAPI\t본사창고\t\t\t\t${Code}\t\t\t${orderEa}\t${price}\t\t${totalPrice}\t\t${name}\t\tY`;
         resultString += EcStirng + '\n';
